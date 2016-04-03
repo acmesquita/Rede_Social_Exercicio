@@ -9,6 +9,37 @@ $(document).ready(function(){
 	 return results[1] || 0;
 	 }
 	}
+
+	 function deletaPost(idPost) {
+		var requisicao = $.ajax({
+			url :  "http://localhost:3000/posts/" + idPost,
+			method : "DELETE"
+		});
+
+		requisicao.done( function() {
+			$("<p>").text("Post excluído").appendTo("body");
+		});
+		requisicao.fail( function() {
+			$("<p>").text("Erro ao excluir Post.").appendTo("body");
+		});
+
+	}
+
+	function deletaComment(idComment) {
+	 var requisicao = $.ajax({
+		 url :  "http://localhost:3000/comments/" + idComment,
+		 method : "DELETE"
+	 });
+
+	 requisicao.done( function() {
+
+	 });
+	 requisicao.fail( function() {
+		 
+	 });
+
+ }
+
 	var id_user = $.urlParam("id_user");
 	//a partir daqui faz a resquisição ajax sem precisar de cliques
 	var requisicao = $.ajax(
@@ -63,6 +94,23 @@ $(document).ready(function(){
 			comentario.attr("class", "link_coments");
 			comentario.text("comentários");
 			comentario.appendTo(section);
+			$('<a>').text("Excluir Post").attr("class", "link_coments").attr("onClick", "").click(
+				function () {
+					 var idRemover = $(this).parent().attr("id");
+					 var commentsRemover = $.ajax(
+			 			"http://localhost:3000/comments/" + idRemover, {
+			 			dataType : "jsonp"
+			 		});
+
+			 		commentsRemover.done(function(comments) {
+						$(comments).each(function(){
+							var comment = this;
+							deletaComment(this.id);
+						});
+			 		});
+					 deletaPost(idRemover);
+					}
+			).appendTo(section);
 		});
 	});
 
@@ -121,8 +169,29 @@ $(document).ready(function(){
 			$("<h3>").text(post.title).appendTo(section);
 			$("<p>").text(post.body).appendTo(section);
 			$("#posts:first").prepend(section);
-			$("<p>").text("Post incluído:" + post.id + " " + id_user).appendTo("body");
 		});
 	});
+
+$("#adicionar_user").click(function () {
+	var addUser = $.ajax({
+		url : "http://localhost:3000/users",
+		method : "POST",
+		data : {
+			name : $("#nome").val(),
+			username : $("#username").val(),
+			email : $("#email").val(),
+			phone:$("#phone").val(),
+			website:$("#site").val(),
+			company:{
+				name:$("#company_name").val()
+			}
+		}
+
+	});
+	addUser.done(function(user_add) {
+
+		$("<p>").text("User incluído:" + user_add.id).appendTo("body");
+	});
+});
 
 });
