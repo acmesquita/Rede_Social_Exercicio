@@ -40,7 +40,7 @@ $(document).ready(function(){
 						divComents.attr("class", "coments")
 						$(comments).each(function(){
 							var divComent = $("<div>").attr("class", "coment");
-							$("<h5>").text(this.body).attr("class", "coment_title").appendTo(divComent);
+							$("<h5>").text(this.name).attr("class", "coment_title").appendTo(divComent);
 							$("<p>").text(this.body).attr("class", "coment_body").appendTo(divComent);
 							divComent.appendTo(divComents);
 						});
@@ -103,5 +103,26 @@ $(document).ready(function(){
 			$("<p>").text("Houve um erro ao carregar os posts.").appendTo("#dados_do_caboco");
 	});
 
+	$("#adicionar_post").click( function() {
+		var requisicao = $.ajax({
+			url : "http://localhost:3000/posts",
+			method : "POST",
+			data : {
+				title : $("#titulo_novo_post").val(),
+				body : $("#corpo_novo_post").val(),
+				userId : id_user
+			}
+		});
+		requisicao.done(function(post) {
+
+			var section = $("<section>");
+			section.attr("id", post.id);
+			section.attr("class", "post");
+			$("<h3>").text(post.title).appendTo(section);
+			$("<p>").text(post.body).appendTo(section);
+			$("#posts:first").prepend(section);
+			$("<p>").text("Post incluído:" + post.id + " " + id_user).appendTo("body");
+		});
+	});
 
 });
