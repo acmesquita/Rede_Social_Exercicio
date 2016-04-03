@@ -63,23 +63,25 @@ body{
    font-weight: bolder;
 }
 .coment_body{
-  padding:  10px;
+   padding:  10px;
    background-color: #769FAD;
    font-style: italic;
 }
 
 .coments{
   padding: 10px;
-  background-color: #BCD9E3;
+  --background-color: #BCD9E3;
 }
 
 .coment{
   background-color: #8FBAC9;
 }
 .link_coments{
+
   border: 5px solid white;
   background-color: #8D8E8F;
   padding: 5px;
+34de2a4f71f31a0d793b48e89bee7a8ea488
 }
 
 a{
