@@ -17,10 +17,10 @@ $(document).ready(function(){
 		});
 
 		requisicao.done( function() {
-			$("<p>").text("Post excluído").appendTo("body");
+			$("#"+idPost).remove();
 		});
 		requisicao.fail( function() {
-			$("<p>").text("Erro ao excluir Post.").appendTo("body");
+			alert("Erro ao excluir Post.");
 		});
 
 	}
@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 	 });
 	 requisicao.fail( function() {
-		 
+
 	 });
 
  }
