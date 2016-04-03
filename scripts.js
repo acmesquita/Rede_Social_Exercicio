@@ -21,18 +21,48 @@ $(document).ready(function(){
 			var post = this;
 			var section = $("<section>");
 			section.attr("id", post.id);
+			section.attr("class", "post");
 			section.appendTo("#posts");
 			$("<h3>").text(post.title).appendTo(section);
 			$("<p>").text(post.body).appendTo(section);
 			var comentario = $("<a>");
-			comentario.attr("href", "#");
-			var idComentario = "comentario";
+			comentario.attr("onClick", "").click(
+				function () {
+					var id_post = +$(this).parent().attr("id");
+					var id_comment = "?postId=" + id_post;
+					var commentPai = $(this).parent();
+					var comentarios = $.ajax("http://localhost:3000/comments"+id_comment, {
+						dataType: "jsonp"
+					});
+
+					comentarios.done(function(comments){
+						var divComents = $("<div>");
+						divComents.attr("class", "coments")
+						$(comments).each(function(){
+							var divComent = $("<div>").attr("class", "coment");
+							$("<h5>").text(this.body).attr("class", "coment_title").appendTo(divComent);
+							$("<p>").text(this.body).attr("class", "coment_body").appendTo(divComent);
+							divComent.appendTo(divComents);
+						});
+						divComents.appendTo(commentPai);
+						$("<a>").text("Ocultar comentarios").attr("class", "link_coments").attr("onClick", "").click(
+							function () {
+								 $(this).parent().remove();
+							}
+						).appendTo(divComents);
+					});
+
+					comentarios.fail(function(){
+						$("<p>").text("Houve um erro ao carregar os comentários.").appendTo("body");
+					});
+				}
+			);
+
+			var idComentario = "comentario" + post.id;
 			comentario.attr("id", idComentario);
-			comentario.attr("class", post.id);
+			comentario.attr("class", "link_coments");
 			comentario.text("comentários");
 			comentario.appendTo(section);
-			$("<hr>").appendTo(section);
-
 		});
 	});
 
@@ -73,23 +103,5 @@ $(document).ready(function(){
 			$("<p>").text("Houve um erro ao carregar os posts.").appendTo("#dados_do_caboco");
 	});
 
-	function chamarComentarios ( idPost){
-		var id_comment = "?postId=" +idPost;
-
-		var comentarios = $.ajax("http://localhost:3000/comments"+id_comment, {
-			dataType: "jsonp"
-		});
-
-		comentarios.done(function(){
-			alert("Deu certo");
-		});
-
-		comentarios.fail(function(){
-			$("<p>").text("Houve um erro ao carregar os comentários.").appendTo("body");
-		});
-
-	};
-
-	
 
 });

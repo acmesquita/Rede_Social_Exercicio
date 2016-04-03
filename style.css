@@ -50,3 +50,36 @@ body{
   margin-bottom: 10px;
   width: 510px;
 }
+
+.post{
+  border : 1em solid #aac;
+  padding: 10px;
+}
+.coment_title{
+  padding:  10px;
+  border-bottom: 0px;
+  padding-bottom: 0px;
+
+   font-weight: bolder;
+}
+.coment_body{
+  padding:  10px;
+   background-color: #769FAD;
+   font-style: italic;
+}
+
+.coments{
+  padding: 10px;
+  background-color: #BCD9E3;
+}
+
+.coment{
+  background-color: #8FBAC9;
+}
+.link_coments{
+  background-color: #8D8E8F;
+}
+
+link.{
+  text-decoration: none;
+}
