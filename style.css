@@ -70,7 +70,7 @@ body{
 
 .coments{
   padding: 10px;
-  --background-color: #BCD9E3;
+  background-color: #BCD9E3;
 }
 
 .coment{
@@ -84,6 +84,7 @@ body{
 34de2a4f71f31a0d793b48e89bee7a8ea488
 }
 
-a{
+a,a:visited{
+  color: black;
   text-decoration: none;
 }
