@@ -26,6 +26,7 @@ $(document).ready(function(){
 			$("<h3>").text(post.title).appendTo(section);
 			$("<p>").text(post.body).appendTo(section);
 			var comentario = $("<a>");
+			comentario.attr("href", "#");
 			comentario.attr("onClick", "").click(
 				function () {
 					var id_post = +$(this).parent().attr("id");
@@ -45,7 +46,7 @@ $(document).ready(function(){
 							divComent.appendTo(divComents);
 						});
 						divComents.appendTo(commentPai);
-						$("<a>").text("Ocultar comentarios").attr("class", "link_coments").attr("onClick", "").click(
+						$("<a>").text("Ocultar comentarios").attr("href", "#").attr("class", "link_coments").attr("onClick", "").click(
 							function () {
 								 $(this).parent().remove();
 							}
