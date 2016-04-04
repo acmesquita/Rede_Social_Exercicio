@@ -59,8 +59,8 @@ body{
   padding:  10px;
   border-bottom: 0px;
   padding-bottom: 0px;
-
-   font-weight: bolder;
+  font-weight: bolder;
+  margin-bottom: 10px;
 }
 .coment_body{
    padding:  10px;

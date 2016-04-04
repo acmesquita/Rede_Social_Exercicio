@@ -88,11 +88,13 @@ $(document).ready(function(){
 							function () {
 								var divCommentNew = $("<div>").text("Novo Comentario").attr("class","novo_comment").attr("id","novo_comment").appendTo($("#"+$(this).parent().attr("id")));
 								$("<br>").appendTo(divCommentNew);
-								$("<label>").attr("name","title_comment").attr("for","title_comment").text("Titulo do Comentario").appendTo(divCommentNew);
-								$("<input>").attr("name","title_comment").attr("id","title_comment").appendTo(divCommentNew);
+								$("<label>").attr("name","title_comment").attr("for","coment_title").text("Titulo do Comentario").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<input>").attr("name","title_comment").attr("id","coment_title").appendTo(divCommentNew);
 								$("<br>").appendTo(divCommentNew);
 								$("<label>").attr("name","body_comment").attr("for","body_comment").text("Comentario").appendTo(divCommentNew);
-								$("<input>").attr("name","body_comment").attr("id","body_comment").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<textarea>").attr("name","body_comment").attr("rows", "5").attr("cols", "30").attr("id","body_comment").appendTo(divCommentNew);
 								$("<br>").appendTo(divCommentNew);
 								$("<select>").attr("name","users").attr("id","users").appendTo(divCommentNew);
 								$("<br>").appendTo(divCommentNew);
@@ -101,8 +103,8 @@ $(document).ready(function(){
 								var select = $("#users");
 								getUsers(select);
 
-								$("<a>").attr("class","link").attr("id","body_comment").text("Enviar Comentario").click(
-									function functionName() {
+								$("<a>").attr("class","link").attr("id","coment_body").text("Enviar Comentario").click(
+									function () {
 
 										var requisicao = $.ajax({
 											url : "http://localhost:3000/comments/",
@@ -120,10 +122,8 @@ $(document).ready(function(){
 											$("<p>").text($("#body_comment").val()).attr("class", "coment_body").appendTo(divComentNew);
 											(divComents).prepend(divComentNew);
 										});
-
-								}
-								).appendTo(divCommentNew);
-
+										$("#novo_comment").hide("slow");
+								}).appendTo(divCommentNew);
 							}
 						).appendTo(divComents);
 					});
