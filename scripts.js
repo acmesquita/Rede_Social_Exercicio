@@ -95,10 +95,13 @@ $(document).ready(function(){
 								$("<input>").attr("name","body_comment").attr("id","body_comment").appendTo(divCommentNew);
 								$("<br>").appendTo(divCommentNew);
 								$("<select>").attr("name","users").attr("id","users").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
 								var select = $("#users");
 								getUsers(select);
 
-								$("<a>").attr("class","link").attr("id","body_comment").text("vai").click(
+								$("<a>").attr("class","link").attr("id","body_comment").text("Enviar Comentario").click(
 									function functionName() {
 
 										var requisicao = $.ajax({
