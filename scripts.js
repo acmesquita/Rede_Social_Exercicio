@@ -181,7 +181,6 @@ function getUsers(select) {
 
 }
 
-
 	var usuarios = $.ajax(
 		"http://localhost:3000/users/", {
 			dataType: "jsonp"
@@ -204,6 +203,7 @@ function getUsers(select) {
 			else{
 				var lista = $("#lista_dos_todos");
 				var item = $("<li>").appendTo(lista);
+				lista.attr("class", "lista_usuario");
 				var link = $("<a>").text(caboco.name);
 				link.attr("href", "index.html?id_user="+caboco.id);
 				link.appendTo(item);
@@ -255,6 +255,10 @@ $("#adicionar_user").click(function () {
 	addUser.done(function(user_add) {
 
 		$("<p>").text("User incluído:" + user_add.id).appendTo("body");
+	});
+
+	addUser.fail(function(error, status){
+		$("<p>").text("Erro ao incluir" + status).appendTo("body");
 	});
 });
 
