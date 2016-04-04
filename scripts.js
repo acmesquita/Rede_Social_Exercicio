@@ -70,6 +70,8 @@ $(document).ready(function(){
 					comentarios.done(function(comments){
 						var divComents = $("<div>");
 						divComents.attr("class", "coments")
+						divComents.attr("id", "coments"+post.id);
+
 						$(comments).each(function(){
 							var divComent = $("<div>").attr("class", "coment");
 							$("<h5>").text(this.name).attr("class", "coment_title").appendTo(divComent);
@@ -82,11 +84,51 @@ $(document).ready(function(){
 								 $(this).parent().remove();
 							}
 						).appendTo(divComents);
+						$("<a>").text("Novo Comentario").attr("class", "link_coments").attr("onClick", "").click(
+							function () {
+								var divCommentNew = $("<div>").text("Novo Comentario").attr("class","novo_comment").attr("id","novo_comment").appendTo($("#"+$(this).parent().attr("id")));
+								$("<br>").appendTo(divCommentNew);
+								$("<label>").attr("name","title_comment").attr("for","title_comment").text("Titulo do Comentario").appendTo(divCommentNew);
+								$("<input>").attr("name","title_comment").attr("id","title_comment").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<label>").attr("name","body_comment").attr("for","body_comment").text("Comentario").appendTo(divCommentNew);
+								$("<input>").attr("name","body_comment").attr("id","body_comment").appendTo(divCommentNew);
+								$("<br>").appendTo(divCommentNew);
+								$("<select>").attr("name","users").attr("id","users").appendTo(divCommentNew);
+								var select = $("#users");
+								getUsers(select);
+
+								$("<a>").attr("class","link").attr("id","body_comment").text("vai").click(
+									function functionName() {
+
+										var requisicao = $.ajax({
+											url : "http://localhost:3000/comments/",
+											method : "POST",
+											data : {
+												name : $("#title_comment").val(),
+												body : $("#body_comment").val(),
+												postId : post.id,
+												userId:$("#users").val()
+											}
+										});
+										requisicao.done(function(post) {
+											var divComentNew = $("<div>").attr("class", "coment");
+											$("<h5>").text($("#title_comment").val()).attr("class", "coment_title").appendTo(divComentNew);
+											$("<p>").text($("#body_comment").val()).attr("class", "coment_body").appendTo(divComentNew);
+											(divComents).prepend(divComentNew);
+										});
+
+								}
+								).appendTo(divCommentNew);
+
+							}
+						).appendTo(divComents);
 					});
 
 					comentarios.fail(function(){
 						$("<p>").text("Houve um erro ao carregar os comentários.").appendTo("body");
 					});
+
 				}
 			);
 
@@ -118,6 +160,24 @@ $(document).ready(function(){
 	requisicao.fail(function(error, status){
 		$("<p>").text("Houve um erro ao carregar os posts.").appendTo("#posts");
 	});
+
+function getUsers(select) {
+
+	var usuariosList = $.ajax(
+		"http://localhost:3000/users/", {
+			dataType: "jsonp"
+	});
+
+	usuariosList.done(function(users){
+
+		$(users).each(function(){
+			var caboco = this;
+			$("<option>").attr("value",caboco.id).text(caboco.name).appendTo(select);
+		});
+	});
+
+}
+
 
 	var usuarios = $.ajax(
 		"http://localhost:3000/users/", {

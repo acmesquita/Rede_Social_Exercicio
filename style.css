@@ -69,6 +69,7 @@ body{
 }
 
 .coments{
+  border: 3px;
   padding: 10px;
   background-color: #BCD9E3;
 }
@@ -91,4 +92,7 @@ a,a:visited{
   background-color: #8D8E8F;
   padding: 5px;
   border: 1px solid black;
+}
+.novo_comment{
+  padding: 10px;
 }
