@@ -240,6 +240,7 @@ $("#adicionar_user").click(function () {
 	var addUser = $.ajax({
 		url : "http://localhost:3000/users",
 		method : "POST",
+		dataType: "application/json"
 		data : {
 			name : $("#nome").val(),
 			username : $("#username").val(),
